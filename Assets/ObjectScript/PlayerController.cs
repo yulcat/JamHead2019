@@ -6,9 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D m_DefaultHead;
 
+    [SerializeField] private Rigidbody2D m_CurrentHead;
+
+
     private Rigidbody2D m_Rigid;
     private FixedJoint2D m_Joint;
     private Transform JointPosition;
+    private ObjectPrefab_Cannon cannon;
+    private Transform rayDirection;
+
+    public LayerMask headLayer = LayerMask.NameToLayer("Head");
     [SerializeField] private float moveSpeed = 8 ;
     [SerializeField] private float jumpForce = 10;
 
@@ -19,10 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
 
-    float shootForce;
-
-
-
     void Start()
     {
         isJumping = false;
@@ -30,6 +33,8 @@ public class PlayerController : MonoBehaviour
         m_Joint = GetComponent<FixedJoint2D>();
 
         JointPosition = transform.GetChild(0);
+        cannon = JointPosition.GetComponent<ObjectPrefab_Cannon>();
+        rayDirection = transform.GetChild(1);
 
     }
 
@@ -49,13 +54,23 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-           if(m_Joint.connectedBody)
+            if (m_Joint.connectedBody)
             {
                 m_Joint.connectedBody = null;
                 m_Joint.enabled = false;
+                cannon.HeadShooting(m_CurrentHead);
+                m_CurrentHead = null;
+                cannon.SetState(true);
             }
             else
-                JointObject(m_DefaultHead);
+            {
+                RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, rayDirection.position - transform.position,10, headLayer);
+                if (hit)
+                {
+                    Debug.Log(rayDirection.position - transform.position);
+                    JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+                }
+            }
         }
 
         MouseEvent();
@@ -79,8 +94,7 @@ public class PlayerController : MonoBehaviour
         _RigidbodyObject.transform.rotation = Quaternion.identity;
         _RigidbodyObject.transform.position = JointPosition.position;
         m_Joint.connectedBody = _RigidbodyObject;
-
-        Debug.Log("머리 획득");
+        m_CurrentHead = _RigidbodyObject;
     }
 
 

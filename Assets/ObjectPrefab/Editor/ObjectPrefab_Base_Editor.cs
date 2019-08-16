@@ -28,6 +28,8 @@ public class ObjectPrefab_Base_Editor : Editor
     private void OnSceneGUI()
     {
         ObjectPrefab_Base ObjectPrefab = target as ObjectPrefab_Base;
+        if (!ObjectPrefab)
+            return;
 
         Handles.color = Color.green;
         foreach (var iter in ObjectPrefab.LinkObjects)

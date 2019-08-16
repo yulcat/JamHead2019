@@ -25,6 +25,7 @@ public abstract class ObjectPrefab_Base : MonoBehaviour
         if(nextState != CurrentState)
         {
             CurrentState = nextState;
+            Debug.Log(gameObject+"변환됨" + CurrentState);
             foreach (var iter in LinkObjects)
                 iter.SetState(CurrentState);
         }
