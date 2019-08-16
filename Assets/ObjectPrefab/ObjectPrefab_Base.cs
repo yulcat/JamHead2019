@@ -16,6 +16,9 @@ public abstract class ObjectPrefab_Base : MonoBehaviour
         SetState(StartState);
     }
 
+    /// <summary>
+    /// 일단 호출을 한다면 체인지 이벤트를 호출하나, 기존과 상태가 같다면, 하위 개체들에게 명령을 보내지 않는다.
+    /// </summary>
     public void SetState(bool _Activity)
     {
         bool nextState = StateChangeEvent(_Activity);
@@ -28,6 +31,9 @@ public abstract class ObjectPrefab_Base : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 바뀔 값을 판정하는 것으로, 바뀌는 것은 원래 상태와 다를때 SetState()에서 처리됨
+    /// </summary>
     protected abstract bool StateChangeEvent(bool _Activity);
 
 

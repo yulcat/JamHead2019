@@ -23,3 +23,11 @@
 
 4. 열리고 닫히는 가로벽/ 세로벽  
     버튼등에 의한 스크립트에 의한 가상함수로, 활성화 비활성화
+
+#### ObjectPrefab_Base
+
+1. StartState는 readonly 스타일  
+   게임 시작시에 초기화 될 값
+
+2. SetState(_Activity)  
+   자식들에게도 활성화/비활성화 변경 이벤트 발생
