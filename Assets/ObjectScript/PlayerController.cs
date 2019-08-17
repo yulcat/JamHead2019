@@ -148,8 +148,8 @@ public class PlayerController : MonoBehaviour
     }
 
     Vector2 ThrowDir_Up = Vector2.up;
-    Vector2 ThrowDir_Normal = Vector2.one;
-    Vector2 ThrowDir_Forward = Vector2.right;
+    Vector2 ThrowDir_Normal = new Vector2(-1,1);
+    Vector2 ThrowDir_Forward = Vector2.left;
     Vector2 ThrowDir_Down = Vector2.down;
 
     private void ThrowHead()
