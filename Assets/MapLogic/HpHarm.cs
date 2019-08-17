@@ -5,11 +5,12 @@ using UnityEngine;
 public class HpHarm : MonoBehaviour
 {
     private bool IsHarm;
+    public string HarmTarget="Player";
     private GameObject Character;
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
@@ -25,6 +26,6 @@ public class HpHarm : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player") IsHarm = true;
+        if (collision.gameObject.tag ==HarmTarget) IsHarm = true;
     }
 }

@@ -10,7 +10,7 @@ public class ObjectMoveObstacle : ObjectPrefab_Base
     protected override void Start()
     {
         base.Start();Ori = MoveObs.gameObject.transform.position;
-           MoveObs.enabled = false;
+          
     }
      
         
