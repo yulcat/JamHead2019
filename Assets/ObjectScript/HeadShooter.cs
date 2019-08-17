@@ -19,8 +19,7 @@ public class HeadShooter : MonoBehaviour
     float shootForce;
 
     public float canGetHeadDistance;
-
-    Quaternion basicRotation;
+    
     Vector3 basicScale;
 
     enum State
@@ -36,7 +35,6 @@ public class HeadShooter : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         shootForce = minForce;
         powerSlider.gameObject.SetActive(false);
-        basicRotation = transform.rotation;
         basicScale = transform.localScale;
     }
 
@@ -126,7 +124,7 @@ public class HeadShooter : MonoBehaviour
     {
         transform.parent = body.transform;
         transform.localScale = basicScale;
-        transform.rotation = basicRotation;
+        transform.rotation = Quaternion.identity;
         state = State.Idle;
         rb.freezeRotation = true;
     }

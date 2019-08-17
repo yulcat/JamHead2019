@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class ObjectPrefab_Cannon : ObjectPrefab_Base
 {
+    public float shootForce;
+    public Vector2 direction;
+    PlayerController playerController;
+    Rigidbody2D rb;
+
     protected override void Start()
     {
         base.Start();
+        rb = GetComponent<Rigidbody2D>();
+        direction.Normalize();
+        playerController = transform.parent.GetComponent<PlayerController>();
     }
 
 
@@ -15,8 +23,8 @@ public class ObjectPrefab_Cannon : ObjectPrefab_Base
         if (_Activity)
         {
             //활성화 명령처리
-
-
+            rb.velocity = shootForce * direction;
+            return false;
         }
         else
         {
@@ -27,5 +35,8 @@ public class ObjectPrefab_Cannon : ObjectPrefab_Base
         return _Activity;
     }
 
-
+    public void HeadShooting(Rigidbody2D _rb)
+    {
+        rb = _rb;
+    }
 }
