@@ -26,11 +26,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
     public bool canControl;
+    //public bool isShootReady;
 
     void Start()
     {
         isJumping = false;
         canControl = true;
+        //isShootReady = false;
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Joint = GetComponent<FixedJoint2D>();
 
@@ -60,7 +62,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if ( Input.GetKeyDown(Key_Shot) )
+        if (Input.GetKeyDown(Key_Shot))
+            //StartCoroutine(HeadShoot());
             HeadShoot();
 
 
@@ -95,17 +98,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //IEnumerator HeadShoot()
     void HeadShoot()
     {
         Debug.Log("공격누름");
         if (m_Joint.connectedBody)
         {
+            //isShootReady = true;
+            //yield return new WaitForSeconds(0.3f);
+
             m_Joint.connectedBody.gameObject.tag = "Head";
             m_Joint.connectedBody = null;
             m_Joint.enabled = false;
             cannon.HeadBulletCharge(m_CurrentHead);
             m_CurrentHead = null;
             cannon.SetState(true);
+            //isShootReady = false;
         }
         else
         {

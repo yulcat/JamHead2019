@@ -42,7 +42,12 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
         else if(ShotCooldown<=0)
             base.Update();
         else
+        {
             ShotCooldown -= Time.deltaTime;
+            if (ShotCooldown <= 0)
+                if(CurrentState)
+                    Observer.ChangeState(true);
+        }
 
     }
 
