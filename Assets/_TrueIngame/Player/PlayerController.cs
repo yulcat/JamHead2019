@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 #pragma warning disable 0649
 
@@ -31,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
     public bool canControl;
+
+    RaycastHit2D[] raycastHits = new RaycastHit2D[10];
     //public bool isShootReady;
 
     void Start()
@@ -45,6 +50,13 @@ public class PlayerController : MonoBehaviour
         cannon = JointPosition.GetComponent<ObjectPrefab_CannonHead>();
         CharacterAnimation.OnThrow = ThrowHead;
         CharacterAnimation.OnJump = Jump;
+
+        contactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Platform", "Interactable"),
+            useLayerMask = true,
+            useTriggers = false,
+        };
     }
 
     protected Vector2 CurrentAxis = Vector2.zero;
@@ -68,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         if (CharacterAnimation.TryMove(CurrentAxis.x))
         {
-            m_Rigid.velocity = new Vector2(CurrentAxis.x * moveSpeed, m_Rigid.velocity.y);
+            TryMoveRigidbody();
         }
         else
         {
@@ -93,6 +105,24 @@ public class PlayerController : MonoBehaviour
         MouseEvent();
     }
 
+    private void FixedUpdate() => CheckFall();
+
+    private void TryMoveRigidbody()
+    {
+        var vector = CurrentAxis.x * Time.fixedDeltaTime * moveSpeed * Vector2.right;
+        var hits = m_Collider.Cast(vector, contactFilter, raycastHits, vector.magnitude);
+        if (hits == 0)
+            m_Rigid.velocity = new Vector2(CurrentAxis.x * moveSpeed, m_Rigid.velocity.y);
+    }
+
+    private void CheckFall()
+    {
+        if (m_Rigid.velocity.y > -1f || m_Collider.Cast(Vector2.down, contactFilter, raycastHits, 0.1f) > 0) return;
+        isJumping = true;
+        CharacterAnimation.SetGround(false);
+    }
+
+
     private void Jump()
     {
         m_Rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -102,13 +132,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        //if (collision.gameObject.tag == "Land")
+        if (collision.contacts.All(c => c.normal.y < 0.5f)) return;
+        if (m_Rigid.velocity.y < 0.001f
+            && m_Collider.Cast(Vector2.down, contactFilter, raycastHits, 0.1f) > 0)
         {
-            if (m_Rigid.velocity.y < 0.001f)
-            {
-                isJumping = false;
-                CharacterAnimation.SetGround(true);
-            }
+            isJumping = false;
+            CharacterAnimation.SetGround(true);
         }
     }
 
@@ -157,6 +186,7 @@ public class PlayerController : MonoBehaviour
     Vector2 ThrowDir_Normal = new Vector2(-1, 1);
     Vector2 ThrowDir_Forward = Vector2.left;
     Vector2 ThrowDir_Down = Vector2.down;
+    private ContactFilter2D contactFilter;
 
     private void ThrowHead()
     {
