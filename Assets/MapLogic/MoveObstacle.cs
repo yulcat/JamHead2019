@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MoveObstacle : MonoBehaviour
 {
+    public Vector2 DeltaPos;
     public List<GameObject> OnLis = new List<GameObject>();
     // Start is called before the first frame update
     public float Velocity;
-    public Vector2 LastPos;
+    private Vector2 LastPos;
    
     void Start()
     {
+        LastPos = new Vector2(DeltaPos.x + transform.position.x, DeltaPos.y + transform.position.y);
     }
 
     // Update is called once per frame

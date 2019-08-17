@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class DoorMoving : MonoBehaviour
 {
-    public Vector2 Laspos
-        ;
+    private Vector2 LastPos;
+    public Vector2 DeltaPos;
+    public GameObject Button;
+    public List<GameObject> TriggerLis = new List<GameObject>();
+   public bool IsTouch;
     private Vector2 OriPos;
     public float Velocity;
-    public GetTouch ButtonTouch; // 입력받을 버튼의 스크립트입니다
+    public bool ForTest=true;
+  
     // Start is called before the first frame update
     void Start()
     {
         OriPos = transform.position;
+        LastPos = OriPos + DeltaPos;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(ButtonTouch.IsTouch)Move(Laspos);
-        else if(ButtonTouch.IsTouch==false) Move(OriPos);
+       if(ForTest) ButtonDown();
+        if(IsTouch)Move(LastPos);
+        else if(IsTouch==false) Move(OriPos);
     }
     private void Move(Vector2 delta_pos)
     {
@@ -29,5 +35,17 @@ public class DoorMoving : MonoBehaviour
         {
             transform.Translate(temp * Velocity * Time.deltaTime);
         }
+    }
+    private void ButtonDown()
+    { int count = 0;
+        Collider2D col = Button.GetComponent<Collider2D>();
+        foreach(var element in TriggerLis)
+        {
+            if (col.IsTouching(element.GetComponent<Collider2D>())){
+                IsTouch = true; Debug.Log(count);
+            }
+            else count += 1;
+        }
+        if (count == TriggerLis.Count) IsTouch = false;
     }
 }
