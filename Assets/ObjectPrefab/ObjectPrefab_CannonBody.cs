@@ -9,22 +9,17 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
     [SerializeField] protected float ShotDelay = 1;
     [Header("장치 설정")]
     [SerializeField] protected ObjectPrefab_CannonHead Cannon;
+
     [Header("상태")]
     [SerializeField] protected float ShotCooldown = 0;
     [SerializeField] protected float CurrentShotDelay = 0;
 
 
-
-
     protected override void Start()
     {
         base.Start();
-        if(!Cannon)
-        {
-            Cannon = transform.GetChild(1).GetComponent<ObjectPrefab_CannonHead>();
-            if(!Cannon)
-                Cannon = transform.GetChild(0).GetComponent<ObjectPrefab_CannonHead>();
-        }
+
+
     }
 
 
@@ -42,7 +37,12 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
         else if(ShotCooldown<=0)
             base.Update();
         else
+        {
             ShotCooldown -= Time.deltaTime;
+            if (ShotCooldown <= 0)
+                if(CurrentState)
+                    Observer.ChangeState(true);
+        }
 
     }
 
@@ -68,4 +68,7 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
         return base.JointObject(_RigidbodyObject);
     }
 
+
+
+    
 }

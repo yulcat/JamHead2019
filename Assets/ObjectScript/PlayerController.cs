@@ -29,11 +29,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
     public bool canControl;
+    //public bool isShootReady;
 
     void Start()
     {
         isJumping = false;
         canControl = true;
+        //isShootReady = false;
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Joint = JointPosition.GetComponent<FixedJoint2D>();
 

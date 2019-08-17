@@ -9,6 +9,7 @@ public class TempTb : MonoBehaviour
     public float autoMoveSpeed;
 
     Color originalHeadColor;
+    CircleCollider2D circleCollider;
 
     void Start()
     {
@@ -30,6 +31,9 @@ public class TempTb : MonoBehaviour
         _rb.velocity = autoMoveSpeed * direction;
         _rb.gravityScale = 0f;
 
+        circleCollider = _rb.gameObject.GetComponent<CircleCollider2D>();
+        circleCollider.isTrigger = true;
+
         SpriteRenderer _sr = _rb.gameObject.GetComponent<SpriteRenderer>();
         originalHeadColor = _sr.color;
         _sr.color = new Color(0, 0, 0, 0.5f);
@@ -42,5 +46,6 @@ public class TempTb : MonoBehaviour
 
         SpriteRenderer _sr = _rb.gameObject.GetComponent<SpriteRenderer>();
         _sr.color = originalHeadColor;
+        circleCollider.isTrigger = false;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/*
 //maskInteraction//https://docs.unity3d.com/ScriptReference/Editor.html
 //https://docs.unity3d.com/kr/current/Manual/class-SpriteRenderer.html
 //https://docs.unity3d.com/kr/current/ScriptReference/SpriteRenderer.html
@@ -16,4 +17,4 @@ public class SpriteRendererEditor : Editor
         DrawDefaultInspector();
     }
 }
-
+*/

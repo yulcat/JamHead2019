@@ -594,7 +594,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511361557}
   m_LocalRotation: {x: -0, y: -0, z: 0.5616768, w: 0.8273567}
-  m_LocalPosition: {x: 4.5, y: 4.97, z: 0}
+  m_LocalPosition: {x: 12, y: 2.4, z: 0}
   m_LocalScale: {x: 1.3048043, y: 4.018966, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1478,8 +1478,8 @@ Camera:
   m_GameObject: {fileID: 2108176734}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.38886052, g: 0.6320754, b: 0.24150053, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1833,12 +1833,12 @@ PrefabInstance:
     - target: {fileID: 4165364138348554067, guid: 09180afb9d8394a4d8355c8f76a92e6a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.58
+      value: 11.232
       objectReference: {fileID: 0}
     - target: {fileID: 4165364138348554067, guid: 09180afb9d8394a4d8355c8f76a92e6a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.06
+      value: 1.773
       objectReference: {fileID: 0}
     - target: {fileID: 4165364138348554067, guid: 09180afb9d8394a4d8355c8f76a92e6a,
         type: 3}
@@ -1885,6 +1885,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 39.548
       objectReference: {fileID: 0}
+    - target: {fileID: 4165364138348554067, guid: 09180afb9d8394a4d8355c8f76a92e6a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.373
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165364137043981489, guid: 09180afb9d8394a4d8355c8f76a92e6a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09180afb9d8394a4d8355c8f76a92e6a, type: 3}
 --- !u!1001 &6376288234917935652
@@ -1897,6 +1907,11 @@ PrefabInstance:
     - target: {fileID: 6376288233912356355, guid: 483c724bf4a24934bb9a2d3a0bfeebb4,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376288233912356355, guid: 483c724bf4a24934bb9a2d3a0bfeebb4,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6376288233912356367, guid: 483c724bf4a24934bb9a2d3a0bfeebb4,
