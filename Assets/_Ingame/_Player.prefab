@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1141929007}
   m_Layer: 13
   m_Name: _Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,6 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eea43f1ff0d5714e834e8e3a397a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartState: 0
+  ReversePower: 0
   LinkObjects: []
   CurrentState: 0
 --- !u!114 &1141929007
@@ -198,6 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4048c2540a298654aa7df805c4657fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartState: 0
+  ReversePower: 0
   LinkObjects: []
   CurrentState: 0
   rightDirection: 1
@@ -274,7 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69d046276fd68f4a88380387513018a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartState: 0
+  ReversePower: 0
   LinkObjects: []
   CurrentState: 0
   shootForce: 20
   direction: {x: 1, y: 0}
+  BulletObject: {fileID: 0}
