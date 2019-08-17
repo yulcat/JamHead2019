@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 #pragma warning disable 0649
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D m_CurrentHead;
 
     private Rigidbody2D m_Rigid;
+    private BoxCollider2D m_Collider;
     private FixedJoint2D m_Joint;
     [SerializeField] private Transform JointPosition;
     [SerializeField] private CharacterAnimation CharacterAnimation;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         canControl = true;
         //isShootReady = false;
         m_Rigid = GetComponent<Rigidbody2D>();
+        m_Collider = GetComponent<BoxCollider2D>();
         m_Joint = JointPosition.GetComponent<FixedJoint2D>();
 
         cannon = JointPosition.GetComponent<ObjectPrefab_CannonHead>();
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
     }
 
     protected Vector2 CurrentAxis = Vector2.zero;
+
     void Update()
     {
         CurrentAxis.x = Input.GetAxisRaw("Horizontal");
@@ -144,11 +148,13 @@ public class PlayerController : MonoBehaviour
         if (!hit.transform.CompareTag("Head")) return false;
         JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
         hit.collider.gameObject.tag = "GetHead";
+        m_Collider.offset = Vector2.up * 1.25f;
+        m_Collider.size = new Vector2(1, 2.5f);
         return true;
     }
 
     Vector2 ThrowDir_Up = Vector2.up;
-    Vector2 ThrowDir_Normal = new Vector2(-1,1);
+    Vector2 ThrowDir_Normal = new Vector2(-1, 1);
     Vector2 ThrowDir_Forward = Vector2.left;
     Vector2 ThrowDir_Down = Vector2.down;
 
@@ -157,9 +163,11 @@ public class PlayerController : MonoBehaviour
         //        m_Joint.connectedBody = null;
         //        m_Joint.enabled = false;
         //cannon
-           // CurrentAxis
+        // CurrentAxis
+        m_Collider.offset = Vector2.up * 0.5f;
+        m_Collider.size = new Vector2(1, 1f);
 
-        if(CurrentAxis.y > 0.2f)
+        if (CurrentAxis.y > 0.2f)
         {
             cannon.direction = ThrowDir_Up;
         }
@@ -175,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(Mathf.Abs(CurrentAxis.x)>0.2f)
+            if (Mathf.Abs(CurrentAxis.x) > 0.2f)
             {
                 cannon.direction = ThrowDir_Forward;
             }
