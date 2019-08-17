@@ -17,6 +17,13 @@ public class ObjectPrefab_Catcher : ObjectPrefab_Base
     [SerializeField] protected Rigidbody2D CatchObject;
 
 
+    [Header("자체 정보들")]
+    [SerializeField] protected LineRenderer LineRender;
+    [SerializeField] protected Transform StartPointer;
+    [SerializeField] protected Transform EndPointer;
+
+    [SerializeField] protected GameObject DisableImage;
+    [SerializeField] protected GameObject EnableImage;
 
     protected override void Start()
     {
@@ -26,6 +33,23 @@ public class ObjectPrefab_Catcher : ObjectPrefab_Base
         Observer = transform.GetChild(0).GetComponent<ObjectPrefab_Observer_Base>();
         if (Observer)
             Observer.ChangeState(CurrentState);
+
+
+
+        StartPointer = transform.GetChild(0);
+        LineRender = transform.GetChild(1).GetComponent<LineRenderer>();
+        EndPointer = transform.GetChild(2);
+
+
+
+        DisableImage = StartPointer.GetChild(0).gameObject;
+        EnableImage = StartPointer.GetChild(1).gameObject;
+
+
+        LineRender.SetPosition(0, StartPointer.localPosition);
+        LineRender.SetPosition(1, EndPointer.localPosition);
+
+        SetImage(StartState);
     }
 
 
@@ -49,6 +73,8 @@ public class ObjectPrefab_Catcher : ObjectPrefab_Base
                 JointObject(null);
             return Observer.ChangeState(_Activity);
         }
+        if(StartPointer)
+        SetImage(_Activity);
         return _Activity;
     }
 
@@ -88,6 +114,12 @@ public class ObjectPrefab_Catcher : ObjectPrefab_Base
             CatchObject.angularVelocity = 0;
         }
 
+    }
+
+    void SetImage(bool _Activity)
+    {
+        DisableImage.SetActive(!_Activity);
+        EnableImage.SetActive(_Activity);
     }
 
 }
