@@ -20,4 +20,6 @@ public class StageClear : ObjectPrefab_Action_Base
     {
         if (collision.gameObject.tag == WinTarget) IsClear = true;
     }
+
+
 }

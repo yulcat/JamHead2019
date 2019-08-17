@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: b3b1b05538ebd6143944b3d6555cd6bb
+guid: 117d985530bcc440fb6347925808f0df
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3392885455431205278
-    second: wall1_0
+      213: 8176988884799877681
+    second: platform1_0
   - first:
-      213: 6644639944261141914
-    second: wall1_1
+      213: 5482134415197942365
+    second: platform1_1
   - first:
-      213: -5549361829505731691
-    second: wall1_2
+      213: 6184934614576112962
+    second: platform1_2
   - first:
-      213: -6938876484123449596
-    second: wall1_3
+      213: 7253600660297681264
+    second: platform1_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -122,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall1_0
+      name: platform1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -136,14 +136,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a9ed729adc6f41baab44134ee0a82cd
-      internalID: -3392885455431205278
+      spriteID: 74e022ea333cd4c96be6d69eee18adc5
+      internalID: 8176988884799877681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall1_1
+      name: platform1_1
       rect:
         serializedVersion: 2
         x: 128
@@ -157,14 +157,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f78a55cad395147f9a79a7f44f25c7eb
-      internalID: 6644639944261141914
+      spriteID: 1d3ddbfd3fca54452807850977d27f2e
+      internalID: 5482134415197942365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall1_2
+      name: platform1_2
       rect:
         serializedVersion: 2
         x: 256
@@ -178,14 +178,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79261274aacc94978a66613cb4c3b139
-      internalID: -5549361829505731691
+      spriteID: b89ec953d18bb4617b760dc229d9923e
+      internalID: 6184934614576112962
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall1_3
+      name: platform1_3
       rect:
         serializedVersion: 2
         x: 384
@@ -199,8 +199,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71a828992f38d46268f3aac4ae3b885d
-      internalID: -6938876484123449596
+      spriteID: 1ead98034de6e44cfa950bd0374094c1
+      internalID: 7253600660297681264
       vertices: []
       indices: 
       edges: []
