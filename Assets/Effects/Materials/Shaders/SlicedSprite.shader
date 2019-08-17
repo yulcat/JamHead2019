@@ -51,7 +51,7 @@ Shader "Unlit/SlicedSprite"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                float xscale = length(unity_ObjectToWorld._m00_m01_m02) / length(unity_ObjectToWorld._m10_m11_m12); 
+                float xscale = length(unity_ObjectToWorld._m00_m10_m20) / length(unity_ObjectToWorld._m01_m11_m21); 
                 xscale *= _MainTex_TexelSize.w / _MainTex_TexelSize.z;
                 float x = xscale * i.uv.x;
                 float xf = xscale;
