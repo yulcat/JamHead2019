@@ -15,5 +15,6 @@ public class SelectButton : MonoBehaviour
     public void SceneLoad()
     {if (SceneManager.GetSceneAt(SceneIndex) == null) return;
         SceneManager.LoadScene(SceneIndex+1);
+
     }
 }
