@@ -36,9 +36,16 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
 
         ColliderSizer.rotation = LookAt2d(StartPointer.localPosition, EndPointer.localPosition);
 
+
         m_Material = LineRender.transform.GetComponent<Renderer>().material;
         m_ShaderVariableId = Shader.PropertyToID("_MainTex");//"Particle Texture"
+
         StartCoroutine(UpdateColliderSizer());
+        if(StartState)
+            CurrentTime = 0;
+        else
+            CurrentTime = ChainEndTimer;
+
     }
 
     private void Update()
