@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraTarget : MonoBehaviour
 {
-    public GameObject target;
+    private GameObject target;
 
     void Start()
     {
-        
+        var withHead = GameObject.FindWithTag("GetHead");
+        target = withHead ? withHead : GameObject.FindWithTag("Head");
     }
 
     // Update is called once per frame

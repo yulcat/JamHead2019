@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         contactFilter = new ContactFilter2D
         {
-            layerMask = LayerMask.GetMask("Platform", "Interactable"),
+            layerMask = LayerMask.GetMask("Default", "Platform", "Interactable"),
             useLayerMask = true,
             useTriggers = false,
         };
