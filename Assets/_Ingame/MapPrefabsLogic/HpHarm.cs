@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HpHarm : MonoBehaviour
+public class HpHarm : ObjectPrefab_Action_Base
 {
     private bool IsHarm;
     public string HarmTarget="Player";
@@ -10,7 +10,7 @@ public class HpHarm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame

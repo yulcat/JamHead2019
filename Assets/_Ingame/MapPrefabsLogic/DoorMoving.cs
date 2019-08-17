@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorMoving : MonoBehaviour
+public class DoorMoving : ObjectPrefab_Action_Base
 {
     private Vector2 LastPos;
     public Vector2 DeltaPos;
@@ -12,7 +12,7 @@ public class DoorMoving : MonoBehaviour
     private Vector2 OriPos;
     public float Velocity;
     public bool ForTest=true;
-  
+
     // Start is called before the first frame update
     void Start()
     {

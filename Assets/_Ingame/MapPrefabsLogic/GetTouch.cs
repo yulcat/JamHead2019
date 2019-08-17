@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetTouch : MonoBehaviour
+public class GetTouch : ObjectPrefab_Action_Base
 {
     public bool IsTouch;
     // Start is called before the first frame update

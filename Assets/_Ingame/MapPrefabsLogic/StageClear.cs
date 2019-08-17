@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageClear : MonoBehaviour
+public class StageClear : ObjectPrefab_Action_Base
 { private bool IsClear;
     public string WinTarget="Head";
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

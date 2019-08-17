@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveObstacle : MonoBehaviour
+public class MoveObstacle : ObjectPrefab_Action_Base
 {
     public Vector2 DeltaPos;
     public List<GameObject> OnLis = new List<GameObject>();
     // Start is called before the first frame update
     public float Velocity;
     private Vector2 LastPos;
-   
+
     void Start()
     {
         LastPos = new Vector2(DeltaPos.x + transform.position.x, DeltaPos.y + transform.position.y);

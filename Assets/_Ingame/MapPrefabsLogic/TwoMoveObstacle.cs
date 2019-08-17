@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwoMoveOnly : MonoBehaviour
-{
+public class TwoMoveObstacle : ObjectPrefab_Action_Base
+{ public List<GameObject> OnLis = new List<GameObject>();
     public Vector2 DeltaPos;
 
     // Start is called before the first frame update
@@ -26,8 +26,7 @@ public class TwoMoveOnly : MonoBehaviour
         MoveBack(OriPos);
     }
     private void Move(Vector2 delta_pos)
-    {
-        if (IsArrive) return;
+    {   if (IsArrive) return;
         Vector2 temp = new Vector2(delta_pos.x - transform.position.x, delta_pos.y - transform.position.y);
         Vector2 temp_reverse = new Vector2(-1 * temp.x, -1 * temp.y);
         temp.Normalize();
@@ -42,8 +41,7 @@ public class TwoMoveOnly : MonoBehaviour
 
     }
     private void MoveBack(Vector2 delta_pos)
-    {
-        if (IsArrive == false) return;
+    {   if (IsArrive==false) return;
 
         Vector2 temp = new Vector2(delta_pos.x - transform.position.x, delta_pos.y - transform.position.y);
         Vector2 temp_reverse = new Vector2(-1 * temp.x, -1 * temp.y);
@@ -53,7 +51,18 @@ public class TwoMoveOnly : MonoBehaviour
             transform.Translate(temp * Velocity * Time.deltaTime);
 
         }
-        else IsArrive = false;
+        else    IsArrive = false;
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnLis.Add(collision.gameObject);
+        collision.gameObject.transform.SetParent(transform);
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        OnLis.Remove(collision.gameObject);
+        collision.gameObject.transform.SetParent(null);
     }
 }

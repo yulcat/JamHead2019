@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private ObjectPrefab_Cannon cannon;
     private Transform rayDirection;
 
-    public LayerMask headLayer = LayerMask.NameToLayer("Head");
     [SerializeField] private float moveSpeed = 8 ;
     [SerializeField] private float jumpForce = 10;
 
@@ -52,8 +51,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+
+        if ( Input.GetKeyDown(Key_Shot) )
         {
+            Debug.Log("공격누름");
             if (m_Joint.connectedBody)
             {
                 m_Joint.connectedBody = null;
@@ -64,11 +65,16 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, rayDirection.position - transform.position,10, headLayer);
+                RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down ,10);
+                Debug.Log("레이 발사");
                 if (hit)
                 {
+                    Debug.Log("찾음");
                     Debug.Log(rayDirection.position - transform.position);
-                    JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+                    if (hit.transform.CompareTag("Head"))
+                    {
+                        JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+                    }
                 }
             }
         }

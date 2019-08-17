@@ -108,12 +108,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8218410397406730473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94cf512d1b7c554cbd4842da3d1f346, type: 3}
+  m_Script: {fileID: 11500000, guid: 214175cde9f70db4a9a6f79c70f2d339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LinkObjects: []
   CurrentState: 0
-  TwoObs: {fileID: 8218410397406730474}
 --- !u!61 &1360099469706884317
 BoxCollider2D:
   m_ObjectHideFlags: 0
