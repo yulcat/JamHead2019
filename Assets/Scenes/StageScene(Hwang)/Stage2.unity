@@ -3293,5 +3293,20 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3141660746255192821, guid: 27f6f1ad6f0814442baa6fda97c48084,
+        type: 3}
+      propertyPath: ShotDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141660747169980406, guid: 27f6f1ad6f0814442baa6fda97c48084,
+        type: 3}
+      propertyPath: direction.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141660747169980406, guid: 27f6f1ad6f0814442baa6fda97c48084,
+        type: 3}
+      propertyPath: shootForce
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f6f1ad6f0814442baa6fda97c48084, type: 3}

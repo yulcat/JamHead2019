@@ -41,7 +41,7 @@ public class ObjectPrefab_Button : ObjectPrefab_Base
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("Head"))
         {
             Debug.Log("트루호출" + CurrentState);
             SetState(true);
@@ -50,7 +50,7 @@ public class ObjectPrefab_Button : ObjectPrefab_Base
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("Head"))
         {
             SetState(false);
         }
