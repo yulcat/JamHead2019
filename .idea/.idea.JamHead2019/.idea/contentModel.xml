@@ -332,6 +332,21 @@
             </e>
           </e>
         </e>
+        <e p="_Ingame" t="Include">
+          <e p="MapPrefabsLogic" t="Include">
+            <e p="DoorMoving.cs" t="Include" />
+            <e p="GetTouch.cs" t="Include" />
+            <e p="HpHarm.cs" t="Include" />
+            <e p="MoveObstacle.cs" t="Include" />
+            <e p="StageClear.cs" t="Include" />
+            <e p="Tube.cs" t="Include" />
+            <e p="TwoMoveObstacle.cs" t="Include" />
+            <e p="TwoMoveOnly.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Effects" t="Include">
+          <e p="BackgroundQuad.cs" t="Include" />
+        </e>
         <e p="Game Jam Template" t="Include">
           <e p="Fonts" t="Include">
             <e p="OpenSans" t="Include">
@@ -363,12 +378,31 @@
             </e>
           </e>
         </e>
+        <e p="Materials" t="Include">
+          <e p="Shaders" t="Include">
+            <e p="Background.shader" t="Include" />
+          </e>
+        </e>
         <e p="ObjectPrefab" t="Include">
           <e p="Editor" t="Include">
             <e p="ObjectPrefab_Base_Editor.cs" t="Include" />
           </e>
+          <e p="ObjectPrefab_Action_Base.cs" t="Include" />
           <e p="ObjectPrefab_Base.cs" t="Include" />
           <e p="ObjectPrefab_Button.cs" t="Include" />
+          <e p="ObjectPrefab_CannonBody.cs" t="Include" />
+          <e p="ObjectPrefab_CannonHead.cs" t="Include" />
+          <e p="ObjectPrefab_Catcher.cs" t="Include" />
+          <e p="ObjectPrefab_Dead.cs" t="Include" />
+          <e p="ObjectPrefab_Direction.cs" t="Include" />
+          <e p="ObjectPrefab_Object.cs" t="Include" />
+          <e p="ObjectPrefab_Observer_Base.cs" t="Include" />
+          <e p="ObjectPrefab_Observer_Trigger.cs" t="Include" />
+        </e>
+        <e p="ObjectScript" t="Include">
+          <e p="CameraTarget.cs" t="Include" />
+          <e p="HeadShooter.cs" t="Include" />
+          <e p="PlayerController.cs" t="Include" />
         </e>
         <e p="Utilities" t="Include">
           <e p="AttributeS.cs" t="Include" />
