@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/StageStart.unity
+    guid: ee549c74be5eeaa48b5fee669b6806eb
+  - enabled: 1
     path: Assets/Scenes/StageScene(Hwang)/Stage1.unity
     guid: d2d29dfdc558af64aae2db5c6f0cf1ae
   - enabled: 1
