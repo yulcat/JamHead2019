@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Joint2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D m_DefaultHead;
-
     [SerializeField] private Rigidbody2D m_CurrentHead;
-
 
     private Rigidbody2D m_Rigid;
     private FixedJoint2D m_Joint;
     private Transform JointPosition;
-    private ObjectPrefab_Cannon cannon;
+    private ObjectPrefab_CannonHead cannon;
     private Transform rayDirection;
 
     [SerializeField] private float moveSpeed = 8 ;
@@ -24,21 +25,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Jump = KeyCode.Space;
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
+    private bool canControl;
 
     void Start()
     {
         isJumping = false;
+        canControl = true;
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Joint = GetComponent<FixedJoint2D>();
 
         JointPosition = transform.GetChild(0);
-        cannon = JointPosition.GetComponent<ObjectPrefab_Cannon>();
+        cannon = JointPosition.GetComponent<ObjectPrefab_CannonHead>();
         rayDirection = transform.GetChild(1);
 
     }
 
     void Update()
     {
+        if (!canControl)
+        {
+            return;
+        }
+
         float inputX = Input.GetAxisRaw("Horizontal");
 
         m_Rigid.velocity = new Vector2(inputX * moveSpeed, m_Rigid.velocity.y);
@@ -53,31 +61,8 @@ public class PlayerController : MonoBehaviour
 
 
         if ( Input.GetKeyDown(Key_Shot) )
-        {
-            Debug.Log("공격누름");
-            if (m_Joint.connectedBody)
-            {
-                m_Joint.connectedBody = null;
-                m_Joint.enabled = false;
-                cannon.HeadShooting(m_CurrentHead);
-                m_CurrentHead = null;
-                cannon.SetState(true);
-            }
-            else
-            {
-                RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down ,10);
-                Debug.Log("레이 발사");
-                if (hit)
-                {
-                    Debug.Log("찾음");
-                    Debug.Log(rayDirection.position - transform.position);
-                    if (hit.transform.CompareTag("Head"))
-                    {
-                        JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
-                    }
-                }
-            }
-        }
+            HeadShoot();
+
 
         MouseEvent();
     }
@@ -109,4 +94,39 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    void HeadShoot()
+    {
+        Debug.Log("공격누름");
+        if (m_Joint.connectedBody)
+        {
+            m_Joint.connectedBody = null;
+            m_Joint.enabled = false;
+            cannon.HeadBulletCharge(m_CurrentHead);
+            m_CurrentHead = null;
+            cannon.SetState(true);
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down, 10);
+            if (hit)
+            {
+                //Debug.Log(rayDirection.position - transform.position);
+                if (hit.transform.CompareTag("Head"))
+                {
+                    JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            canControl = false;
+            HeadShoot();
+        }
+    }
+
 }

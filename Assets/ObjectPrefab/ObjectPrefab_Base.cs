@@ -4,11 +4,13 @@ using UnityEngine;
 
 public abstract class ObjectPrefab_Base : MonoBehaviour
 {
-    [Header("※ 게임 시작시 정보")]
-    public readonly bool StartState = false;
+    [Header("※ 게임시작과 / 기본설정")]
+    public bool StartState = false;
+    public bool ReversePower = false;
+
     [Header("※ 작용이 발생할 하위 객체들")]
     public List<ObjectPrefab_Base> LinkObjects;
-    [Header("※ 지금의 작동 상태")]
+    [Header("※ 지금의 작동 상태[수정해도 효과x]")]
     public bool CurrentState = false;
 
     protected virtual void Start()
@@ -25,11 +27,14 @@ public abstract class ObjectPrefab_Base : MonoBehaviour
         if(nextState != CurrentState)
         {
             CurrentState = nextState;
+            if(ReversePower)
+                Debug.Log(gameObject + "역변환됨" + !CurrentState);
+            else
             Debug.Log(gameObject+"변환됨" + CurrentState);
-            foreach (var iter in LinkObjects)
-                iter.SetState(CurrentState);
-        }
 
+            foreach (var iter in LinkObjects)
+                iter.SetState(ReversePower?!CurrentState : CurrentState);
+        }
     }
 
     /// <summary>
@@ -37,5 +42,8 @@ public abstract class ObjectPrefab_Base : MonoBehaviour
     /// </summary>
     protected abstract bool StateChangeEvent(bool _Activity);
 
+    protected virtual void ReturnObject(ref ObjectPrefab_Base _object)
+    {
+    }
 
 }
