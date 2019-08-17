@@ -7,6 +7,8 @@
     SubShader
     {
         Tags { "RenderType"="Opaque" }
+        
+        ZWrite off
         LOD 100
 
         Pass
