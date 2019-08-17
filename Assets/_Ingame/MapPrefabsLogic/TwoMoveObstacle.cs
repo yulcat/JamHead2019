@@ -5,7 +5,7 @@ using UnityEngine;
 public class TwoMoveObstacle : ObjectPrefab_Action_Base
 { public List<GameObject> OnLis = new List<GameObject>();
     public Vector2 DeltaPos;
-    private GameObject Head;
+    public GameObject Head;
 
     // Start is called before the first frame update
     public float Velocity;
@@ -75,10 +75,7 @@ public class TwoMoveObstacle : ObjectPrefab_Action_Base
         if(collision.gameObject.tag=="Player" || collision.gameObject.tag=="Head")
         {
             PlayLis.Add(collision.gameObject);
-            if (Head.tag == "GetHead")
-            {
-                PlayLis.Add(Head);
-            }
+          
         }
        else collision.gameObject.transform.SetParent(transform);
     }
@@ -88,10 +85,7 @@ public class TwoMoveObstacle : ObjectPrefab_Action_Base
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Head")
         {
             PlayLis.Remove(collision.gameObject);
-            if (Head.tag == "GetHead")
-            {
-                PlayLis.Remove(Head);
-            }
+          
         }
         collision.gameObject.transform.SetParent(null);
     }
