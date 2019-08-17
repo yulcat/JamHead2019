@@ -12,17 +12,20 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D m_Rigid;
     private FixedJoint2D m_Joint;
-    private Transform JointPosition;
+    [SerializeField] private Transform JointPosition;
+    [SerializeField] private CharacterAnimation CharacterAnimation;
     private ObjectPrefab_CannonHead cannon;
-    private Transform rayDirection;
+    [SerializeField] private Transform rayDirection;
 
-    [SerializeField] private float moveSpeed = 8 ;
+    [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpForce = 10;
 
-    [Header("※ 캐릭터 상태")]
-    [ReadOnly,SerializeField] private bool isJumping;
-    [Header("※ 게임 조작 정보")]
-    [SerializeField] private KeyCode Key_Jump = KeyCode.Space;
+    [Header("※ 캐릭터 상태")] [ReadOnly, SerializeField]
+    private bool isJumping;
+
+    [Header("※ 게임 조작 정보")] [SerializeField]
+    private KeyCode Key_Jump = KeyCode.Space;
+
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
     public bool canControl;
@@ -32,12 +35,11 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         canControl = true;
         m_Rigid = GetComponent<Rigidbody2D>();
-        m_Joint = GetComponent<FixedJoint2D>();
+        m_Joint = JointPosition.GetComponent<FixedJoint2D>();
 
-        JointPosition = transform.GetChild(0);
         cannon = JointPosition.GetComponent<ObjectPrefab_CannonHead>();
-        rayDirection = transform.GetChild(1);
-
+        CharacterAnimation.OnThrow = ThrowHead;
+        CharacterAnimation.OnJump = Jump;
     }
 
     void Update()
@@ -49,31 +51,54 @@ public class PlayerController : MonoBehaviour
 
         float inputX = Input.GetAxisRaw("Horizontal");
 
-        m_Rigid.velocity = new Vector2(inputX * moveSpeed, m_Rigid.velocity.y);
+        if (Mathf.Abs(inputX) > 0.5f)
+        {
+            var scaleX = -Mathf.Sign(inputX);
+            transform.localScale = new Vector3(scaleX, 1, 1);
+        }
+
+        if (CharacterAnimation.TryMove(inputX))
+        {
+            m_Rigid.velocity = new Vector2(inputX * moveSpeed, m_Rigid.velocity.y);
+        }
+        else
+        {
+            m_Rigid.velocity = new Vector2(0, m_Rigid.velocity.y);
+        }
+
         if (!isJumping)
         {
             if (Input.GetKeyDown(Key_Jump))
             {
-                m_Rigid.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse);
-                isJumping = true;
+                CharacterAnimation.TryJump();
             }
         }
 
 
-        if ( Input.GetKeyDown(Key_Shot) )
-            HeadShoot();
+        if (Input.GetKeyDown(Key_Shot))
+        {
+            OnFireInput();
+        }
 
 
         MouseEvent();
+    }
+
+    private void Jump()
+    {
+        m_Rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        isJumping = true;
+        CharacterAnimation.SetGround(false);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         //if (collision.gameObject.tag == "Land")
         {
-            if (m_Rigid.velocity.y <0.001f)
+            if (m_Rigid.velocity.y < 0.001f)
             {
                 isJumping = false;
+                CharacterAnimation.SetGround(true);
             }
         }
     }
@@ -81,45 +106,52 @@ public class PlayerController : MonoBehaviour
 
     void JointObject(Rigidbody2D _RigidbodyObject)
     {
-        m_Joint.enabled = true;
-        _RigidbodyObject.transform.rotation = Quaternion.identity;
-        _RigidbodyObject.transform.position = JointPosition.position;
-        m_Joint.connectedBody = _RigidbodyObject;
+        _RigidbodyObject.transform.SetParent(JointPosition);
+        _RigidbodyObject.transform.localRotation = Quaternion.identity;
+        _RigidbodyObject.transform.localPosition = Vector3.zero;
+        _RigidbodyObject.transform.localScale = Vector3.one;
+        _RigidbodyObject.simulated = false;
         m_CurrentHead = _RigidbodyObject;
     }
 
 
     void MouseEvent()
     {
-
-
     }
 
-    void HeadShoot()
+    void OnFireInput()
     {
         Debug.Log("공격누름");
-        if (m_Joint.connectedBody)
+        if (m_CurrentHead != null)
         {
-            m_Joint.connectedBody.gameObject.tag = "Head";
-            m_Joint.connectedBody = null;
-            m_Joint.enabled = false;
-            cannon.HeadBulletCharge(m_CurrentHead);
-            m_CurrentHead = null;
-            cannon.SetState(true);
+            CharacterAnimation.TryThrow();
         }
-        else
+        else if (TryPickupHead())
         {
-            RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down, 10);
-            if (hit)
-            {
-                //Debug.Log(rayDirection.position - transform.position);
-                if (hit.transform.CompareTag("Head"))
-                {
-                    JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
-                    hit.collider.gameObject.tag = "GetHead";
-                }
-            }
+            CharacterAnimation.PickUp();
         }
+    }
+
+    private bool TryPickupHead()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down, 10);
+        if (!hit) return false;
+        if (!hit.transform.CompareTag("Head")) return false;
+        JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+        hit.collider.gameObject.tag = "GetHead";
+        return true;
+    }
+
+    private void ThrowHead()
+    {
+//        m_Joint.connectedBody = null;
+//        m_Joint.enabled = false;
+        m_CurrentHead.transform.SetParent(null);
+        m_CurrentHead.gameObject.tag = "Head";
+        m_CurrentHead.simulated = true;
+        cannon.HeadBulletCharge(m_CurrentHead);
+        m_CurrentHead = null;
+        cannon.SetState(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -127,8 +159,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             canControl = false;
-            HeadShoot();
+            OnFireInput();
         }
     }
-
 }
