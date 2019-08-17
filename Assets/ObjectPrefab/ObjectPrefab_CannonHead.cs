@@ -21,7 +21,7 @@ public class ObjectPrefab_CannonHead : ObjectPrefab_Base
         {
             Vector2 tempDirection = direction;
             if (transform.lossyScale.x < 0)
-                tempDirection.x *= -1;  
+                tempDirection.x *= -1;
             BulletObject.velocity = shootForce * tempDirection;
             BulletObject = null;
             return false;

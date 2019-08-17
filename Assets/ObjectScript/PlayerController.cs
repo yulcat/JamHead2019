@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Key_Jump = KeyCode.Space;
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
 
-    private bool canControl;
+    public bool canControl;
 
     void Start()
     {
@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("공격누름");
         if (m_Joint.connectedBody)
         {
+            m_Joint.connectedBody.gameObject.tag = "Head";
             m_Joint.connectedBody = null;
             m_Joint.enabled = false;
             cannon.HeadBulletCharge(m_CurrentHead);
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform.CompareTag("Head"))
                 {
                     JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+                    hit.collider.gameObject.tag = "GetHead";
                 }
             }
         }

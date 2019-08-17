@@ -11,13 +11,11 @@ public class Tube : ObjectPrefab_Action_Base
     public GameObject Target;
     public Vector2 OriPos;
     
-    // Start is called before the first frame update
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         Moving();
