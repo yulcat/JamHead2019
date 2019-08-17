@@ -13,7 +13,7 @@ public class ObjectPrefab_Button : ObjectPrefab_Base
 
     float Timer = 0;
     private void Update()
-    {
+    {   if (transform.childCount==0) return;
         if(Timer!=0)
         {
             if(CurrentState)

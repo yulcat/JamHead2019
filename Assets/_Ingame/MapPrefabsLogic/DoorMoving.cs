@@ -23,9 +23,9 @@ public class DoorMoving : ObjectPrefab_Action_Base
     // Update is called once per frame
     void Update()
     {
-       if(ForTest) ButtonDown();
-        if(IsTouch)Move(LastPos);
-        else if(IsTouch==false) Move(OriPos);
+       
+        Move(LastPos);
+   
     }
     private void Move(Vector2 delta_pos)
     {

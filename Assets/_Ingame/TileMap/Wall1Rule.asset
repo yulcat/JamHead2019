@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d746e0082aaaaf0458b2b02bb4d45a47, type: 3}
+  m_Name: Wall1Rule
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 6644639944261141914, guid: 756d6b1e0f773431b94e3051dfad65ae,
+    type: 3}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Neighbors: 0000000000000000000000000200000001000000000000000000000000000000
+    m_Sprites:
+    - {fileID: -3392885455431205278, guid: 756d6b1e0f773431b94e3051dfad65ae, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_AutoTransform: 0
+    m_Output: 0
+    m_ColliderType: 1
+  - m_Neighbors: 0000000000000000000000000100000002000000000000000000000000000000
+    m_Sprites:
+    - {fileID: -5549361829505731691, guid: 756d6b1e0f773431b94e3051dfad65ae, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_AutoTransform: 0
+    m_Output: 0
+    m_ColliderType: 1
+  - m_Neighbors: 0000000000000000000000000200000002000000000000000000000000000000
+    m_Sprites:
+    - {fileID: -6938876484123449596, guid: b3b1b05538ebd6143944b3d6555cd6bb, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_AutoTransform: 0
+    m_Output: 0
+    m_ColliderType: 1
