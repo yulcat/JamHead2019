@@ -44,24 +44,27 @@ public class PlayerController : MonoBehaviour
         CharacterAnimation.OnJump = Jump;
     }
 
+    protected Vector2 CurrentAxis = Vector2.zero;
     void Update()
     {
+        CurrentAxis.x = Input.GetAxisRaw("Horizontal");
+        CurrentAxis.y = Input.GetAxisRaw("Vertical");
+
         if (!canControl)
         {
             return;
         }
 
-        float inputX = Input.GetAxisRaw("Horizontal");
 
-        if (Mathf.Abs(inputX) > 0.5f)
+        if (Mathf.Abs(CurrentAxis.x) > 0.5f)
         {
-            var scaleX = -Mathf.Sign(inputX);
+            var scaleX = -Mathf.Sign(CurrentAxis.x);
             transform.localScale = new Vector3(scaleX, 1, 1);
         }
 
-        if (CharacterAnimation.TryMove(inputX))
+        if (CharacterAnimation.TryMove(CurrentAxis.x))
         {
-            m_Rigid.velocity = new Vector2(inputX * moveSpeed, m_Rigid.velocity.y);
+            m_Rigid.velocity = new Vector2(CurrentAxis.x * moveSpeed, m_Rigid.velocity.y);
         }
         else
         {
@@ -144,10 +147,45 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    Vector2 ThrowDir_Up = Vector2.up;
+    Vector2 ThrowDir_Normal = Vector2.one;
+    Vector2 ThrowDir_Forward = Vector2.right;
+    Vector2 ThrowDir_Down = Vector2.down;
+
     private void ThrowHead()
     {
-//        m_Joint.connectedBody = null;
-//        m_Joint.enabled = false;
+        //        m_Joint.connectedBody = null;
+        //        m_Joint.enabled = false;
+        //cannon
+           // CurrentAxis
+
+        if(CurrentAxis.y > 0.2f)
+        {
+            cannon.direction = ThrowDir_Up;
+        }
+        else if (CurrentAxis.y < -0.2f)
+        {
+            cannon.direction = ThrowDir_Down;
+
+            m_CurrentHead.transform.SetParent(null);
+            m_CurrentHead.gameObject.tag = "Head";
+            m_CurrentHead.simulated = true;
+            m_CurrentHead = null;
+            return;
+        }
+        else
+        {
+            if(Mathf.Abs(CurrentAxis.x)>0.2f)
+            {
+                cannon.direction = ThrowDir_Forward;
+            }
+            else
+            {
+                cannon.direction = ThrowDir_Normal;
+            }
+        }
+
+
         m_CurrentHead.transform.SetParent(null);
         m_CurrentHead.gameObject.tag = "Head";
         m_CurrentHead.simulated = true;

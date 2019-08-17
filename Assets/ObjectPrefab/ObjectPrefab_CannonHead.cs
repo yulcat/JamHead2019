@@ -20,7 +20,6 @@ public class ObjectPrefab_CannonHead : ObjectPrefab_Base
             CannonRail = transform.GetChild(0);
             if (CannonRail)
             {
-                Debug.Log("안니");
                 CannonRail.rotation = LookAt2d(Vector3.zero, direction);
             }
         }
@@ -33,7 +32,7 @@ public class ObjectPrefab_CannonHead : ObjectPrefab_Base
         if (_Activity)
         {
             Vector2 tempDirection = direction;
-            if (transform.lossyScale.x < 0)
+            if (transform.lossyScale.x > 0)
                 tempDirection.x = -1* direction.x;
             if(BulletObject)
             {
