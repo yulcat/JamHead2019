@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPrefab_Dead : ObjectPrefab_Base
 {
     private Vector2 deadPos;
-    private bool isDead;
+    public bool isDead;
 
     protected override void Start()
     {
@@ -18,9 +18,11 @@ public class ObjectPrefab_Dead : ObjectPrefab_Base
     {
         if (_Activity)
         {
+            
             //활성화 명령처리
             isDead = true;
             deadPos = transform.position;
+           ;
         }
         else
         {

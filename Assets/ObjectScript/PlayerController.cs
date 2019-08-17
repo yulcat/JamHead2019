@@ -69,9 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Land")
+        //if (collision.gameObject.tag == "Land")
         {
-            if (m_Rigid.velocity.y == 0f)
+            if (m_Rigid.velocity.y <0.001f)
             {
                 isJumping = false;
             }
