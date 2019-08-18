@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-#if UNITY_EDITOR
 
 public class ReadOnlyAttribute : PropertyAttribute
 {
@@ -12,7 +11,7 @@ public class ReadOnlyAttribute : PropertyAttribute
         this.runtimeOnly = runtimeOnly;
     }
 }
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
 {

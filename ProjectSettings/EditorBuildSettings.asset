@@ -4,5 +4,32 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage1.unity
+    guid: d2d29dfdc558af64aae2db5c6f0cf1ae
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage2.unity
+    guid: 428ecb5ea7d6082448ee2179bd80153e
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage3.unity
+    guid: 80d75517b83621d4cb82065b2675371f
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage4.unity
+    guid: c751a9923d6cb2841a13aa739de2eeee
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage5.unity
+    guid: 7ba7b5a88633c0a43936d81c930cde96
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage6.unity
+    guid: 174ccd0b2cde8c643be4f334caad4b2e
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage7.unity
+    guid: 30d06c58bfa88ba48bc0e82a3fe1558f
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage9.unity
+    guid: 6f901849ae6c3d04a85b491e917b49d1
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage11.unity
+    guid: 92ced7ce7fb20e5448cc996eda997158
   m_configObjects: {}
