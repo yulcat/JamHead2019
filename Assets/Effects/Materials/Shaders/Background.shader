@@ -11,6 +11,7 @@
     {
         Tags { "RenderType"="Opaque" }
         
+        Cull off
         ZWrite off
         LOD 100
 
@@ -52,6 +53,7 @@
                 o.uv2 = float2(_WorldSpaceCameraPos.x, _WorldSpaceCameraPos.y) / _UvRatio;
                 o.uv2 += uv2 * float2(_SubTex_TexelSize.w / _SubTex_TexelSize.z, 1) * _Multiplier;
                 o.vertex = float4(o.uv * 2 - 1, 1, 1);
+                o.vertex.y *= -1;
                 return o;
             }
 
