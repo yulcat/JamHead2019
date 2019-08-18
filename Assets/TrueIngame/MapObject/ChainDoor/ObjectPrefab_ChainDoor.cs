@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
 {
-    [Header("스텟 설정")]
-    [SerializeField] protected float ChainEndTimer = 1;
+    [Header("스텟 설정")] [SerializeField] protected float ChainEndTimer = 1;
 
 
-    [Header("자체 정보들")]
-    [SerializeField] protected float CurrentTime = 0;
-    [SerializeField,ReadOnly] protected bool StartChainState = true;
+    [Header("자체 정보들")] [SerializeField] protected float CurrentTime = 0;
+    [SerializeField, ReadOnly] protected bool StartChainState = true;
 
 
     [SerializeField] protected Transform StartPointer;
@@ -40,25 +38,24 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
 
 
         m_Material = LineRender.transform.GetComponent<Renderer>().material;
-        m_ShaderVariableId = Shader.PropertyToID("_MainTex");//"Particle Texture"
+        m_ShaderVariableId = Shader.PropertyToID("_MainTex"); //"Particle Texture"
 
         StartCoroutine(UpdateColliderSizer());
-        if(StartState)
+        if (StartState)
             CurrentTime = 0;
         else
             CurrentTime = ChainEndTimer;
-        StartChainState = false;
-
+//        StartChainState = false;
     }
 
     private void Update()
     {
-        if(StartChainState)
+        if (StartChainState)
         {
-            if (CurrentState&(!ReversePower))
+            if (CurrentState & (!ReversePower))
             {
                 CurrentTime -= Time.deltaTime;
-                if(CurrentTime <= 0)
+                if (CurrentTime <= 0)
                 {
                     CurrentTime = 0;
                     StartChainState = false;
@@ -83,11 +80,11 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
                 else
                     SetChainRange();
             }
+
             SoundC.SetActive(true);
         }
         else
             SoundC.SetActive(false);
-
     }
 
     private void SetChainRange()
@@ -95,13 +92,15 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
         ChainEndPoint = Vector3.Lerp(StartPointer.localPosition, EndPointer.localPosition, CurrentTime / ChainEndTimer);
         SetChainRangeData();
     }
+
     Vector3 tempVector3 = Vector3.one;
+
     private void SetChainRangeData()
     {
         OffsetValue.x = ChainEndPoint.magnitude;
         m_Material.SetTextureOffset(m_ShaderVariableId, -OffsetValue);
         tempVector3.y = Mathf.Max(0.01f, OffsetValue.x);
-        LineRender.SetPosition(1,ChainEndPoint);
+        LineRender.SetPosition(1, ChainEndPoint);
     }
 
     protected override bool StateChangeEvent(bool _Activity)
@@ -113,14 +112,14 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
 
     IEnumerator UpdateColliderSizer()
     {
-        while(true)
+        while (true)
         {
-            if(StartChainState)
+            if (StartChainState)
                 updateSize();
             yield return m_WaitCoroutine;
         }
-
     }
+
     void updateSize()
     {
         ColliderSizer.localScale = tempVector3;
@@ -132,8 +131,6 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
         desc.x = desc.x - src.x;
         desc.y = desc.y - src.y;
         float angle = Mathf.Atan2(desc.y, desc.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(new Vector3(0, 0, angle-90));
+        return Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
-
-
 }
