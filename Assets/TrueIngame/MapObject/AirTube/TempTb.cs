@@ -5,6 +5,7 @@ public class TempTb : MonoBehaviour
 {
     Transform startPoint;
     Transform endPoint;
+    AudioSource tubeSound;
     public float autoMoveSpeed;
 
     Color originalHeadColor;
@@ -15,6 +16,7 @@ public class TempTb : MonoBehaviour
     {
         startPoint = transform.GetChild(0);
         endPoint = transform.GetChild(1);
+        tubeSound = GetComponent<AudioSource>();
     }
 
 
@@ -46,6 +48,8 @@ public class TempTb : MonoBehaviour
         _rb.gameObject.transform.position = startPoint.position;
         circleCollider = _rb.gameObject.GetComponent<CircleCollider2D>();
         circleCollider.isTrigger = true;
+
+        tubeSound.Play();
 
         SpriteRenderer _sr = _rb.gameObject.GetComponent<SpriteRenderer>();
         originalHeadColor = _sr.color;
