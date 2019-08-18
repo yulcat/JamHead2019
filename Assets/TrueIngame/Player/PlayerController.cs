@@ -189,6 +189,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("공격누름");
         if (m_CurrentHead != null)
         {
+            SoundT.SetActive(false);
             SoundT.SetActive(true);
             CharacterAnimation.TryThrow();
         }
@@ -198,12 +199,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    string TempTagSaver = "Head";
     private bool TryPickupHead()
     {
         RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down, 10);
         if (!hit) return false;
-        if (!hit.transform.CompareTag("Head")) return false;
+        if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Head"))
+            return false;
         JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+        TempTagSaver = hit.collider.gameObject.tag;
         hit.collider.gameObject.tag = "GetHead";
         m_Collider.offset = Vector2.up * 1.25f;
         m_Collider.size = new Vector2(1, 2.5f);
@@ -236,7 +240,7 @@ public class PlayerController : MonoBehaviour
             cannon.direction = ThrowDir_Down;
 
             m_CurrentHead.transform.SetParent(null);
-            m_CurrentHead.gameObject.tag = "Head";
+            m_CurrentHead.gameObject.tag = TempTagSaver;
             m_CurrentHead.simulated = true;
             m_CurrentHead = null;
             return;
@@ -255,7 +259,7 @@ public class PlayerController : MonoBehaviour
 
 
         m_CurrentHead.transform.SetParent(null);
-        m_CurrentHead.gameObject.tag = "Head";
+        m_CurrentHead.gameObject.tag = TempTagSaver;
         m_CurrentHead.simulated = true;
         cannon.HeadBulletCharge(m_CurrentHead);
         m_CurrentHead = null;
