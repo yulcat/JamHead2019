@@ -194,8 +194,8 @@ public class PlayerController : MonoBehaviour
         //        m_Joint.enabled = false;
         //cannon
         // CurrentAxis
-        m_Collider.offset = Vector2.up * 0.5f;
-        m_Collider.size = new Vector2(1, 1f);
+        m_Collider.offset = Vector2.up * 0.6f;
+        m_Collider.size = new Vector2(1, 1.2f);
 
         if (CurrentAxis.y > 0.2f)
         {
