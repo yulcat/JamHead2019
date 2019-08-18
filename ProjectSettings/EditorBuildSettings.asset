@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StageScene(Hwang)/Stage4.unity
     guid: c751a9923d6cb2841a13aa739de2eeee
+  - enabled: 1
+    path: Assets/Scenes/StageScene(Hwang)/Stage9.unity
+    guid: 6f901849ae6c3d04a85b491e917b49d1
   m_configObjects: {}

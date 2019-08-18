@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraTarget : MonoBehaviour
 {
@@ -14,5 +15,6 @@ public class CameraTarget : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(target.transform.position.x, target.transform.position.y, -10f);
+        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

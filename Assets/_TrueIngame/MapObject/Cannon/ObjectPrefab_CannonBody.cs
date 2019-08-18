@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Joint2D))]
-public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
+public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher_Base
 {
     [Header("장치 설정")]
     [SerializeField] protected float ShotDelay = 1;
@@ -70,5 +70,5 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher
 
 
 
-    
+
 }
