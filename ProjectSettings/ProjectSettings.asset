@@ -649,10 +649,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 50561480-7776-42cc-b66d-2b604204702c
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: ProjectHead
+  organizationId: seojiho1
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

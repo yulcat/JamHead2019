@@ -10,6 +10,7 @@ public class TempTb : MonoBehaviour
 
     Color originalHeadColor;
     CircleCollider2D circleCollider;
+    private GameObject Use;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class TempTb : MonoBehaviour
     }
 
     public void AutoMove(Rigidbody2D _rb)
-    {
+    {  
         _rb.gameObject.transform.position = startPoint.position;
         Vector2 direction = endPoint.position - startPoint.position;
         direction.Normalize();
