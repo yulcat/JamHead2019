@@ -26,6 +26,8 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
     Vector2 OffsetValue = Vector2.zero;
     WaitForSeconds m_WaitCoroutine = new WaitForSeconds(0.1f);
 
+    [SerializeField] GameObject SoundC;
+
     protected override void Start()
     {
         base.Start();
@@ -45,6 +47,7 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
             CurrentTime = 0;
         else
             CurrentTime = ChainEndTimer;
+        StartChainState = false;
 
     }
 
@@ -58,7 +61,7 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
                 if(CurrentTime <= 0)
                 {
                     CurrentTime = 0;
-                    StartChainState = true;
+                    StartChainState = false;
                     ChainEndPoint = StartPointer.localPosition;
                     SetChainRangeData();
                     updateSize();
@@ -72,7 +75,7 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
                 if (CurrentTime >= ChainEndTimer)
                 {
                     CurrentTime = ChainEndTimer;
-                    StartChainState = true;
+                    StartChainState = false;
                     ChainEndPoint = EndPointer.localPosition;
                     SetChainRangeData();
                     updateSize();
@@ -80,7 +83,10 @@ public class ObjectPrefab_ChainDoor : ObjectPrefab_Base
                 else
                     SetChainRange();
             }
+            SoundC.SetActive(true);
         }
+        else
+            SoundC.SetActive(false);
 
     }
 
