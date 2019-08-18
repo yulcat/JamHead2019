@@ -14,6 +14,7 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher_Base
     [SerializeField] protected float ShotCooldown = 0;
     [SerializeField] protected float CurrentShotDelay = 0;
 
+    [SerializeField] GameObject SoundB;
 
     protected override void Start()
     {
@@ -32,6 +33,8 @@ public class ObjectPrefab_CannonBody : ObjectPrefab_Catcher_Base
             {
                 JointObject(null);
                 Cannon.SetState(true);
+                SoundB.SetActive(false);
+                SoundB.SetActive(true);
             }
         }
         else if(ShotCooldown<=0)

@@ -25,10 +25,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpForce = 10;
 
-    [Header("※ 캐릭터 상태")] [ReadOnly, SerializeField]
+    [Header("※ 캐릭터 상태")]
+    [ReadOnly, SerializeField]
     private bool isJumping;
 
-    [Header("※ 게임 조작 정보")] [SerializeField]
+    [Header("※ 게임 조작 정보")]
+    [SerializeField]
     private KeyCode Key_Jump = KeyCode.Space;
 
     [SerializeField] private KeyCode Key_Shot = KeyCode.LeftControl;
@@ -38,7 +40,7 @@ public class PlayerController : MonoBehaviour
     RaycastHit2D[] raycastHits = new RaycastHit2D[10];
     //public bool isShootReady;
 
-    [SerializeField]GameObject SoundW;
+    [SerializeField] GameObject SoundW;
     [SerializeField] GameObject SoundT;
     [SerializeField] GameObject SoundD;
 
@@ -85,12 +87,9 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(CurrentAxis.x) > 0.5f)
         {
-            SoundW.SetActive(true);
             var scaleX = -Mathf.Sign(CurrentAxis.x);
             transform.localScale = new Vector3(scaleX, 1, 1);
         }
-        else
-            SoundW.SetActive(false);
 
         if (CharacterAnimation.TryMove(CurrentAxis.x))
         {
@@ -153,6 +152,20 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             CharacterAnimation.SetGround(true);
         }
+        if (Mathf.Abs(CurrentAxis.x) > 0.2f)
+        {
+            SoundW.SetActive(true);
+        }
+        else
+            SoundW.SetActive(false);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Land")
+        {
+            SoundW.SetActive(false);
+        }
     }
 
 
@@ -176,6 +189,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("공격누름");
         if (m_CurrentHead != null)
         {
+            SoundT.SetActive(false);
             SoundT.SetActive(true);
             CharacterAnimation.TryThrow();
         }
@@ -185,15 +199,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    string TempTagSaver = "Head";
     private bool TryPickupHead()
     {
         RaycastHit2D hit = Physics2D.Raycast(rayDirection.transform.position, Vector2.down, 10);
         if (!hit) return false;
-        if (!hit.transform.CompareTag("Head")) return false;
+        if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Head"))
+            return false;
         JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+        TempTagSaver = hit.collider.gameObject.tag;
         hit.collider.gameObject.tag = "GetHead";
         m_Collider.offset = Vector2.up * 1.25f;
         m_Collider.size = new Vector2(1, 2.5f);
+        SoundT.SetActive(false);
         return true;
     }
 
@@ -222,7 +240,7 @@ public class PlayerController : MonoBehaviour
             cannon.direction = ThrowDir_Down;
 
             m_CurrentHead.transform.SetParent(null);
-            m_CurrentHead.gameObject.tag = "Head";
+            m_CurrentHead.gameObject.tag = TempTagSaver;
             m_CurrentHead.simulated = true;
             m_CurrentHead = null;
             return;
@@ -241,7 +259,7 @@ public class PlayerController : MonoBehaviour
 
 
         m_CurrentHead.transform.SetParent(null);
-        m_CurrentHead.gameObject.tag = "Head";
+        m_CurrentHead.gameObject.tag = TempTagSaver;
         m_CurrentHead.simulated = true;
         cannon.HeadBulletCharge(m_CurrentHead);
         m_CurrentHead = null;
