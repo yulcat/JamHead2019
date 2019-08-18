@@ -51,9 +51,15 @@ public class PlayerController : MonoBehaviour
         CharacterAnimation.OnThrow = ThrowHead;
         CharacterAnimation.OnJump = Jump;
 
-        contactFilter = new ContactFilter2D
+        sideContactFilter = new ContactFilter2D
         {
             layerMask = LayerMask.GetMask("Default", "Platform", "Interactable"),
+            useLayerMask = true,
+            useTriggers = false,
+        };
+        bottomContactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default", "Platform", "Interactable", "OneWayPlatform"),
             useLayerMask = true,
             useTriggers = false,
         };
@@ -110,14 +116,14 @@ public class PlayerController : MonoBehaviour
     private void TryMoveRigidbody()
     {
         var vector = CurrentAxis.x * Time.fixedDeltaTime * moveSpeed * Vector2.right;
-        var hits = m_Collider.Cast(vector, contactFilter, raycastHits, vector.magnitude);
+        var hits = m_Collider.Cast(vector, sideContactFilter, raycastHits, vector.magnitude);
         if (hits == 0)
             m_Rigid.velocity = new Vector2(CurrentAxis.x * moveSpeed, m_Rigid.velocity.y);
     }
 
     private void CheckFall()
     {
-        if (m_Rigid.velocity.y > -1f || m_Collider.Cast(Vector2.down, contactFilter, raycastHits, 0.1f) > 0) return;
+        if (m_Rigid.velocity.y > -1f || m_Collider.Cast(Vector2.down, sideContactFilter, raycastHits, 0.1f) > 0) return;
         isJumping = true;
         CharacterAnimation.SetGround(false);
     }
@@ -134,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.contacts.All(c => c.normal.y < 0.5f)) return;
         if (m_Rigid.velocity.y < 0.001f
-            && m_Collider.Cast(Vector2.down, contactFilter, raycastHits, 0.1f) > 0)
+            && m_Collider.Cast(Vector2.down, bottomContactFilter, raycastHits, 0.1f) > 0)
         {
             isJumping = false;
             CharacterAnimation.SetGround(true);
@@ -186,7 +192,8 @@ public class PlayerController : MonoBehaviour
     Vector2 ThrowDir_Normal = new Vector2(-1, 1);
     Vector2 ThrowDir_Forward = Vector2.left;
     Vector2 ThrowDir_Down = Vector2.down;
-    private ContactFilter2D contactFilter;
+    private ContactFilter2D sideContactFilter;
+    private ContactFilter2D bottomContactFilter;
 
     private void ThrowHead()
     {
