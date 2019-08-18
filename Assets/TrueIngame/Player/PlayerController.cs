@@ -206,7 +206,9 @@ public class PlayerController : MonoBehaviour
         if (!hit) return false;
         if (hit.transform.gameObject.layer != LayerMask.NameToLayer("Head"))
             return false;
-        JointObject(hit.collider.gameObject.GetComponent<Rigidbody2D>());
+        Rigidbody2D _rb = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+        JointObject(_rb);
+        _rb.gravityScale = 1.0f;
         TempTagSaver = hit.collider.gameObject.tag;
         hit.collider.gameObject.tag = "GetHead";
         m_Collider.offset = Vector2.up * 1.25f;
