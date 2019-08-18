@@ -8,6 +8,7 @@ TagManager:
   - Land
   - Head
   - GetHead
+  - DummyHead
   layers:
   - Default
   - TransparentFX

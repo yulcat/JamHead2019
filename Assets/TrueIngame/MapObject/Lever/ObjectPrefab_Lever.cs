@@ -8,6 +8,8 @@ public class ObjectPrefab_Lever : ObjectPrefab_Base
     GameObject BasicImage;
     GameObject ActiveImage;
 
+    [SerializeField]GameObject SoundA;
+
 
     protected override void Start()
     {
@@ -30,6 +32,7 @@ public class ObjectPrefab_Lever : ObjectPrefab_Base
         {
             BasicImage.SetActive(!_Activity);
             ActiveImage.SetActive(_Activity);
+            SoundA.SetActive(true);
         }
     }
 
