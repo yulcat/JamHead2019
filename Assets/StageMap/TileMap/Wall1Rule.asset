@@ -23,7 +23,7 @@ MonoBehaviour:
     m_PerlinScale: 0.5
     m_AutoTransform: 0
     m_Output: 0
-    m_ColliderType: 2
+    m_ColliderType: 1
   - m_Neighbors: 0000000000000000000000000100000002000000000000000000000000000000
     m_Sprites:
     - {fileID: -5549361829505731691, guid: 756d6b1e0f773431b94e3051dfad65ae, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_PerlinScale: 0.5
     m_AutoTransform: 0
     m_Output: 0
-    m_ColliderType: 2
+    m_ColliderType: 1
   - m_Neighbors: 0000000000000000000000000200000002000000000000000000000000000000
     m_Sprites:
     - {fileID: -6938876484123449596, guid: b3b1b05538ebd6143944b3d6555cd6bb, type: 3}
@@ -39,4 +39,4 @@ MonoBehaviour:
     m_PerlinScale: 0.5
     m_AutoTransform: 0
     m_Output: 0
-    m_ColliderType: 2
+    m_ColliderType: 1
