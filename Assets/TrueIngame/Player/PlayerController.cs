@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
     RaycastHit2D[] raycastHits = new RaycastHit2D[10];
     //public bool isShootReady;
 
+    [SerializeField]GameObject SoundW;
+    [SerializeField] GameObject SoundT;
+    [SerializeField] GameObject SoundD;
+
+
     void Start()
     {
         isJumping = false;
@@ -80,9 +85,12 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(CurrentAxis.x) > 0.5f)
         {
+            SoundW.SetActive(true);
             var scaleX = -Mathf.Sign(CurrentAxis.x);
             transform.localScale = new Vector3(scaleX, 1, 1);
         }
+        else
+            SoundW.SetActive(false);
 
         if (CharacterAnimation.TryMove(CurrentAxis.x))
         {
@@ -168,6 +176,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("공격누름");
         if (m_CurrentHead != null)
         {
+            SoundT.SetActive(true);
             CharacterAnimation.TryThrow();
         }
         else if (TryPickupHead())
@@ -244,6 +253,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             canControl = false;
+            SoundD.SetActive(true);
             OnFireInput();
         }
     }
